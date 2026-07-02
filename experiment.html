@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>barwood.tech</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-personal: #10b981;
+            --border: #334155;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 40px 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        /* Header & Brand */
+        header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            margin-bottom: 8px;
+        }
+
+        .logo span {
+            color: var(--accent);
+            transition: var(--transition);
+        }
+
+        body.mode-personal .logo span {
+            color: var(--accent-personal);
+        }
+
+        .tagline {
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        /* Filter Controls */
+        .controls {
+            display: flex;
+            justify-content: center;
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 6px;
+            border-radius: 30px;
+            margin-bottom: 48px;
+            gap: 4px;
+        }
+
+        .btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            padding: 10px 24px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn.active {
+            color: var(--text-main);
+        }
+
+        .btn-prof.active {
+            background-color: var(--accent);
+            color: var(--bg-color);
+        }
+
+        .btn-personal.active {
+            background-color: var(--accent-personal);
+            color: var(--bg-color);
+        }
+
+        /* Content Grid & Cards */
+        .content-section {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            transition: var(--transition);
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Filtering Utility Classes */
+        .card.hidden {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        .badge-prof {
+            background-color: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+        }
+
+        .badge-personal {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--accent-personal);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 300;
+        }
+
+        .links {
+            margin-top: 16px;
+            display: flex;
+            gap: 16px;
+        }
+
+        .links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-bottom: 1px dashed var(--text-muted);
+            transition: var(--transition);
+        }
+
+        .links a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        body.mode-personal .links a:hover {
+            color: var(--accent-personal);
+            border-bottom-color: var(--accent-personal);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            border-top: 1px solid var(--border);
+            padding-top: 24px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        @media (min-width: 640px) {
+            .content-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .card.featured {
+                grid-column: span 2;
+            }
+        }
+    </style>
+</head>
+<body class="mode-all">
+
+    <div class="container">
+        <header>
+            <div class="logo">barwood<span>.tech</span></div>
+            <div class="tagline">Systems, strategy, and exploration.</div>
+        </header>
+
+        <div class="controls">
+            <button class="btn btn-all active" onclick="filterMode('all')">Show All</button>
+            <button class="btn btn-prof" onclick="filterMode('prof')">Professional</button>
+            <button class="btn btn-personal" onclick="filterMode('personal')">Personal</button>
+        </div>
+
+        <main class="content-section">
+            
+            <div class="card featured" data-type="all">
+                <div class="card-header">
+                    <h2>Welcome</h2>
+                </div>
+                <p>Hi, I'm Matthew. I build my career around optimizing software architectures and streamlining complex business delivery pipelines. When I step away from the keyboard, I dedicate my energy to active physical endurance challenges, remote travel logistics, and optimizing daily workflows.</p>
+                <div class="links">
+                    <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+                    <a href="mailto:contact@barwood.tech">Email Inquiries</a>
+                </div>
+            </div>
+
+            <div class="card" data-type="prof">
+                <div class="card-header">
+                    <h2>Systems & Architecture</h2>
+                    <span class="badge badge-prof">Work</span>
+                </div>
+                <p>Specializing in bridging the gap between legacy infrastructure and modern software ecosystems. Focused on mapping clean technical frameworks to commercial value and software product delivery.</p>
+            </div>
+
+            <div class="card" data-type="personal">
+                <div class="card-header">
+                    <h2>Active Travel & Trekking</h2>
+                    <span class="badge badge-personal">Life</span>
+                </div>
+                <p>Passionate about demanding, long-distance wilderness routes and solo trekking logistics. My sweet spot is exploring remote, high-latitude environments like the Arctic Circle during summer.</p>
+            </div>
+
+            <div class="card" data-type="prof">
+                <div class="card-header">
+                    <h2>Delivery Strategy</h2>
+                    <span class="badge badge-prof">Work</span>
+                </div>
+                <p>Analytical approach to workflow execution, data-driven system sign-offs, and mentoring teams through complex post-go-live software transitions.</p>
+            </div>
+
+            <div class="card" data-type="personal">
+                <div class="card-header">
+                    <h2>Endurance & Wellness</h2>
+                    <span class="badge badge-personal">Life</span>
+                </div>
+                <p>Fascinated by physical capability, recovery, and daily nutrition. Balanced by structured functional fitness, high-mileage road walks, and traditional sauna recovery routines.</p>
+            </div>
+
+            <div class="card featured" data-type="all">
+                <div class="card-header">
+                    <h2>The Digital Garden</h2>
+                    <span class="badge" style="background: rgba(255,255,255,0.05); color: var(--text-muted); border: 1px solid var(--border);">Notes</span>
+                </div>
+                <p>An occasional repository of personal notes on continuous improvement. Topics range from systematic budgeting principles (like YNAB) and performance optimization workflows, to technical reviews of wilderness expedition gear.</p>
+            </div>
+
+        </main>
+
+        <footer>
+            &copy; 2026 barwood.tech &bull; This domain handles active secure email routing.
+        </footer>
+    </div>
+
+    <script>
+        function filterMode(mode) {
+            // Update button states
+            document.querySelectorAll('.btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.btn-' + mode).classList.add('active');
+
+            // Update body class for accent color shifts
+            document.body.className = 'mode-' + mode;
+
+            // Filter cards with smooth fade transition
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                const cardType = card.getAttribute('data-type');
+                
+                if (mode === 'all') {
+                    card.classList.remove('hidden');
+                } else if (cardType === 'all') {
+                    card.classList.remove('hidden'); // Always show introductory/shared boxes
+                } else if (cardType === mode) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
