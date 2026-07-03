@@ -6,14 +6,16 @@
     <title>barwood.tech</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --text-main: #f8fafc;
-            --text-muted: #64748b;
+            --bg-color: #0d121f;
+            --text-main: #f1f5f9;
+            --text-muted: #8e9db0;
             --accent: #38bdf8;
-            --steel: #334155;
+            --structure: #2a3a52; /* Steel Blue-Gray for the frame */
+            --pipes: #c0c8d4;     /* Lighter steel for external services */
+            --structure-opacity: 0.15;
         }
 
         * {
@@ -31,65 +33,30 @@
             flex-direction: column;
             justify-content: space-between;
             padding: 40px;
-            overflow: hidden;
-        }
-
-        /* Background Architecture Graphic (Lloyd's Building Concept) */
-        .lloyds-graphic {
-            position: absolute;
-            bottom: 0;
-            right: 10%;
-            width: 300px;
-            height: 70vh;
-            display: flex;
-            gap: 15px;
-            align-items: flex-end;
-            opacity: 0.15;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .tower {
-            background: linear-gradient(180deg, var(--steel) 0%, transparent 100%);
-            width: 60px;
+            overflow: hidden; /* Keep the graphic contained */
             position: relative;
-            border-left: 1px solid rgba(255,255,255,0.2);
-            border-right: 1px solid rgba(255,255,255,0.2);
         }
 
-        .tower-1 { height: 100%; }
-        .tower-2 { height: 85%; }
-        .tower-3 { height: 60%; }
-
-        /* External pipework detail mimicking Lloyd's high-tech architecture */
-        .pipe {
-            position: absolute;
-            width: 4px;
-            background-color: var(--accent);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            box-shadow: 0 0 15px var(--accent);
-        }
-
-        /* Content Area */
-        main {
-            max-width: 650px;
-            margin-top: 15vh;
-            z-index: 2;
-        }
-
-        .logo {
+        /* --- CONTENT AREA --- */
+        .header-logo {
             font-size: 1.25rem;
             font-weight: 500;
             letter-spacing: -0.025em;
             margin-bottom: 48px;
             color: var(--text-muted);
+            position: relative;
+            z-index: 10;
         }
 
-        .logo span {
+        .header-logo span {
             color: var(--text-main);
+        }
+
+        main {
+            max-width: 650px;
+            margin-top: 12vh;
+            position: relative;
+            z-index: 10;
         }
 
         h1 {
@@ -106,24 +73,130 @@
         }
 
         .subtitle {
-            font-size: 1.15rem;
+            font-size: 1.25rem;
             color: var(--text-muted);
             font-weight: 300;
+            letter-spacing: 0.01em;
         }
 
-        /* Footer Alignment */
+        /* --- LLOYDS BUILDING CSS GRAPHIC --- */
+        .lloyds-container {
+            position: absolute;
+            bottom: -20px;
+            right: 8%;
+            width: 380px;
+            height: 85vh;
+            opacity: var(--structure-opacity);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        /* Main Structural Frame */
+        .structure-main {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            gap: 12px;
+            position: relative;
+            border-bottom: 4px solid var(--structure);
+        }
+
+        /* The iconic exterior service towers */
+        .service-tower {
+            background-color: transparent;
+            width: 80px;
+            position: relative;
+            border-left: 2px solid var(--structure);
+            border-right: 2px solid var(--structure);
+        }
+
+        /* Diagonal X-bracing texture */
+        .service-tower::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(45deg, transparent 48%, var(--structure) 50%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, var(--structure) 50%, transparent 52%);
+            background-size: 30px 30px;
+        }
+
+        .tower-height-1 { height: 100%; }
+        .tower-height-2 { height: 90%; }
+        .tower-height-3 { height: 75%; }
+
+        /* External 'Satellites' - Stairs/Lifts */
+        .satellite {
+            position: absolute;
+            width: 25px;
+            height: 80%;
+            background-color: transparent;
+            border: 2px solid var(--pipes);
+            border-bottom: none;
+            bottom: 12px;
+        }
+
+        .satellite-left { left: -15px; height: 92%; }
+        .satellite-right { right: -15px; height: 85%; }
+
+        /* External visible pipework / conduit */
+        .conduit {
+            position: absolute;
+            width: 6px;
+            height: 100%;
+            background-color: var(--pipes);
+            top: 0;
+        }
+
+        .conduit-1 { left: 10px; width: 4px; }
+        .conduit-2 { left: 22px; width: 4px; }
+        .conduit-3 { right: 15px; width: 8px; border-radius: 4px; background-color: var(--structure); }
+
+        /* Central Atrium connection */
+        .atrium-connector {
+            flex-grow: 1;
+            height: 60%;
+            background-color: transparent;
+            align-self: flex-end;
+            position: relative;
+            border-top: 2px solid var(--structure);
+        }
+
+        .atrium-connector::after {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            background-image: 
+                linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.03) 50%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(255,255,255,0.03) 50%, transparent 52%);
+            background-size: 15px 15px;
+        }
+
+        /* --- FOOTER --- */
         footer {
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             padding-top: 32px;
-            z-index: 2;
+            position: relative;
+            z-index: 10;
         }
 
         .footer-left {
             display: flex;
             gap: 24px;
+            flex-wrap: wrap;
         }
 
         .links a {
@@ -131,30 +204,40 @@
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 400;
-            transition: color 0.2s;
+            transition: color 0.2s ease, border-bottom 0.2s ease;
+            border-bottom: 1px solid transparent;
         }
 
         .links a:hover {
             color: var(--accent);
+            border-bottom: 1px solid var(--accent);
         }
 
         .copyright {
             font-size: 0.85rem;
             color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        /* --- RESPONSIVE ADJUSTMENTS --- */
+        @media (max-width: 1024px) {
+            .lloyds-container { right: 5%; width: 300px; }
         }
 
         @media (max-width: 768px) {
-            body { padding: 24px; }
-            h1 { font-size: 1.75rem; }
-            footer { flex-direction: column; align-items: flex-start; gap: 16px; }
-            .lloyds-graphic { right: 5%; width: 200px; }
-            .tower-3 { display: none; }
+            body { padding: 24px; overflow: auto; }
+            main { margin-top: 8vh; margin-bottom: 40px; }
+            h1 { font-size: 1.85rem; }
+            .subtitle { font-size: 1.15rem; }
+            .lloyds-container { display: none; } /* Hide complex graphic on small screens for better readability */
+            footer { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .footer-left { flex-direction: column; gap: 10px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="logo">
+    <div class="header-logo">
         barwood<span>.tech</span>
     </div>
 
@@ -167,15 +250,32 @@
         </p>
     </main>
 
-    <div class="lloyds-graphic">
-        <div class="tower tower-3"></div>
-        <div class="tower tower-1"><div class="pipe"></div></div>
-        <div class="tower tower-2"></div>
+    <div class="lloyds-container">
+        <div class="structure-main">
+            
+            <div class="service-tower tower-height-1">
+                <div class="conduit conduit-1"></div>
+                <div class="conduit conduit-2"></div>
+                <div class="satellite satellite-left"></div>
+            </div>
+
+            <div class="atrium-connector"></div>
+
+            <div class="service-tower tower-height-2">
+                <div class="conduit conduit-3"></div>
+                <div class="satellite satellite-right"></div>
+            </div>
+
+            <div class="service-tower tower-height-3" style="width: 50px;">
+                <div class="conduit conduit-1" style="left: 15px;"></div>
+            </div>
+
+        </div>
     </div>
 
     <footer>
         <div class="footer-left links">
-            <a href="https://linkedin.com/in/barwood" target="_blank">LinkedIn</a>
+            <a href="https://linkedin.com" target="_blank">LinkedIn</a>
             <a href="mailto:website@barwood.tech">website@barwood.tech</a>
         </div>
         <div class="copyright">
