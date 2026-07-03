@@ -6,15 +6,14 @@
     <title>barwood.tech</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #0b0f19;
             --text-main: #f8fafc;
             --text-muted: #64748b;
-            --accent-prof: #38bdf8;
-            --accent-personal: #34d399;
-            --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            --accent: #38bdf8;
+            --steel: #334155;
         }
 
         * {
@@ -24,7 +23,7 @@
         }
 
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             min-height: 100vh;
@@ -32,189 +31,152 @@
             flex-direction: column;
             justify-content: space-between;
             padding: 40px;
+            overflow: hidden;
         }
 
-        header {
+        /* Background Architecture Graphic (Lloyd's Building Concept) */
+        .lloyds-graphic {
+            position: absolute;
+            bottom: 0;
+            right: 10%;
+            width: 300px;
+            height: 70vh;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            max-width: 1000px;
-            margin: 0 auto;
+            gap: 15px;
+            align-items: flex-end;
+            opacity: 0.15;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .tower {
+            background: linear-gradient(180deg, var(--steel) 0%, transparent 100%);
+            width: 60px;
+            position: relative;
+            border-left: 1px solid rgba(255,255,255,0.2);
+            border-right: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .tower-1 { height: 100%; }
+        .tower-2 { height: 85%; }
+        .tower-3 { height: 60%; }
+
+        /* External pipework detail mimicking Lloyd's high-tech architecture */
+        .pipe {
+            position: absolute;
+            width: 4px;
+            background-color: var(--accent);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        /* Content Area */
+        main {
+            max-width: 600px;
+            margin-top: 15vh;
+            z-index: 2;
         }
 
         .logo {
-            font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
+            font-size: 1.25rem;
+            font-weight: 500;
+            letter-spacing: -0.025em;
+            margin-bottom: 48px;
+            color: var(--text-muted);
         }
 
         .logo span {
-            color: var(--text-muted);
-        }
-
-        /* Toggle Button */
-        .toggle-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            padding: 8px 16px;
-            border-radius: 20px;
-            border: 1px solid #1e293b;
-            transition: var(--transition);
-        }
-
-        .toggle-btn:hover {
             color: var(--text-main);
-            border-color: #334155;
         }
 
-        /* Main Hero Section */
-        main {
-            max-width: 1000px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 60px 0;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 48px;
-            align-items: center;
-        }
-
-        .hero-text {
-            max-width: 600px;
-        }
-
-        .hero-text h1 {
+        h1 {
             font-size: 2.25rem;
             font-weight: 400;
             line-height: 1.3;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.03em;
             margin-bottom: 24px;
         }
 
-        .hero-text p {
-            font-size: 1.05rem;
+        h1 span {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
             color: var(--text-muted);
             font-weight: 300;
-            line-height: 1.7;
+            max-width: 480px;
         }
 
-        .highlight {
-            color: var(--accent-prof);
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        /* Graphic Container */
-        .graphic-container {
+        /* Minimal Navigation/Footer */
+        footer {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            opacity: 0.8;
-        }
-
-        /* Minimal Vector Art representing the Lloyd's Building */
-        .lloyds-graphic {
-            width: 180px;
-            height: 280px;
-            fill: none;
-            stroke: var(--accent-prof);
-            stroke-width: 1.2;
-            transition: var(--transition);
-        }
-
-        /* Mode Switch Animations */
-        body.mode-personal .highlight {
-            color: var(--accent-personal);
-        }
-
-        body.mode-personal .lloyds-graphic {
-            stroke: var(--accent-personal);
-            transform: scaleY(0.9) rotate(5deg);
-        }
-
-        .links {
-            margin-top: 32px;
-            display: flex;
-            gap: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 32px;
+            z-index: 2;
         }
 
         .links a {
             color: var(--text-main);
             text-decoration: none;
             font-size: 0.9rem;
-            font-weight: 500;
-            opacity: 0.6;
-            transition: var(--transition);
-            border-bottom: 1px solid transparent;
+            font-weight: 400;
+            transition: color 0.2s;
         }
 
         .links a:hover {
-            opacity: 1;
-            border-bottom-color: var(--text-main);
+            color: var(--accent);
         }
 
-        footer {
-            width: 100%;
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            color: #475569;
+        .domain-status {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
         }
 
-        @media (min-width: 768px) {
-            main {
-                grid-template-columns: 1.5fr 1fr;
-                gap: 80px;
-            }
+        @media (max-width: 768px) {
+            body { padding: 24px; }
+            h1 { font-size: 1.75rem; }
+            .lloyds-graphic { right: 5%; width: 200px; }
+            .tower-3 { display: none; }
         }
     </style>
 </head>
-<body class="mode-prof">
+<body>
 
-    <header>
-        <div class="logo">barwood<span>.tech</span></div>
-        <button class="toggle-btn" id="modeToggle" onclick="toggleMode()">View Interests</button>
-    </header>
+    <div class="logo">
+        barwood<span>.tech</span>
+    </div>
 
     <main>
-        <div class="hero-text">
-            <div id="content-prof">
-                <h1>Matthew Barwood</h1>
-                <p>Business Analyst operating within the <span class="highlight">London Market</span>.
-            </div>
-            
-            <div class="links">
-                <a href="https://linkedin.com/in/barwood" target="_blank">LinkedIn</a>
-                <a href="mailto:contact@barwood.tech">Email</a>
-            </div>
-        </div>
-
-        <div class="graphic-container">
-            <svg class="lloyds-graphic" viewBox="0 0 100 160" id="visual-art">
-                <rect x="35" y="10" width="30" height="140" />
-                <line x1="20" y1="30" x2="35" y2="30" />
-                <line x1="20" y1="70" x2="35" y2="70" />
-                <line x1="20" y1="110" x2="35" y2="110" />
-                <rect x="12" y="40" width="12" height="20" />
-                <rect x="12" y="80" width="12" height="20" />
-                
-                <line x1="65" y1="20" x2="85" y2="40" />
-                <line x1="65" y1="50" x2="85" y2="70" />
-                <line x1="65" y1="80" x2="85" y2="100" />
-                <line x1="85" y1="10" x2="85" y2="150" />
-            </svg>
-        </div>
+        <h1>
+            Business Analysis & Systems Strategy for the <span>London Market</span> Insurance Space.
+        </h1>
+        <p class="subtitle">
+            Optimizing complex operations, modernizing core architectures, and driving technical delivery where tradition meets technology.
+        </p>
     </main>
 
+    <div class="lloyds-graphic">
+        <div class="tower tower-3"></div>
+        <div class="tower tower-1"><div class="pipe"></div></div>
+        <div class="tower tower-2"></div>
+    </div>
+
     <footer>
-        <div>&copy; 2026 barwood.tech</div>
+        <div class="links">
+            <a href="https://linkedin.com" target="_blank">Connect on LinkedIn</a>
+        </div>
+        <div class="domain-status">
+            MX Active &bull; Email Gateway
+        </div>
     </footer>
 
 </body>
